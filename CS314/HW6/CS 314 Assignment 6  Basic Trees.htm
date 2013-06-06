@@ -1,0 +1,122 @@
+
+<!-- saved from url=(0052)http://www.cs.utexas.edu/users/novak/cs314treea.html -->
+<html><!--  cs314treea.html          G. Novak           17 Oct 12    --><!--    --><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>CS 314 Assignment 6: Basic Trees</title>
+</head>
+<body>
+
+<h2>CS 314 Assignment 6: Basic Trees</h2>
+
+<h3>Due: October 18, 2012.</h3>
+
+<b>File:</b> <tt>Cons.java</tt>
+
+<p>
+All of the following functions that operate on trees should be recursive.
+Some functions that you may need are provided in the file
+<tt>Cons.java</tt> .  This assignment may be done in Java or in Lisp.
+
+</p><ol>
+
+<p></p><li> Write a function <tt>maxbt(Object tree)</tt>
+that finds the maximum value in a binary tree of <tt>Integer</tt>.
+For this function, we will assume that both the <tt>first</tt> and
+<tt>rest</tt> of a <tt>Cons</tt> can be subtrees.  We will assume
+that every element of the tree is a <tt>Cons</tt> (which can be
+tested with <tt>consp</tt> and then cast as <tt>(Cons)</tt>),
+<tt>null</tt>, or <tt>Integer</tt>.  We will assume that every
+<tt>Integer</tt> is greater than <tt>Integer.MIN_VALUE</tt>.
+<br> Example: <tt>(maxbt '((1 7) (-3 2) (((8)))) )  =  8</tt>
+
+<p></p></li><li> An algebraic expression can be written as a linked list tree:
+an expression is either a number (<tt>Integer</tt> or <tt>Double</tt>),
+a symbol (<tt>String</tt>), or a list <tt>(</tt><i>op lhs rhs</i><tt>)</tt>
+where <i>op</i> is an operator (<tt>String</tt>) and <i>lhs</i>
+(left-hand side) and <i>rhs</i> (right-hand side) are expressions.
+The functions <tt>op</tt>, <tt>lhs</tt> and <tt>rhs</tt> are provided.
+Write a function <tt>Cons vars(Object expr)</tt> that returns a set
+of the variables in an expression.  Note that the <i>op</i> and
+numbers are not variables.  The result is a set (list) of variables
+in any order; the <tt>union</tt> function is provided.
+<br> Example: <tt>(vars '(= f (* m a)))  =  (f m a)</tt>
+
+<p></p></li><li> Write a function
+<tt>boolean occurs(Object value, Object tree)</tt> that tests whether
+the <tt>value</tt> occurs anywhere in the expression <tt>tree</tt>.
+We will assume that the <tt>value</tt> has a <tt>.equals()</tt> method
+and is not a Cons.
+<br> Example: <tt>(occurs 'm '(= f (* m a)))  =  true</tt>
+
+<p></p></li><li> Write a function <tt>Integer eval(Object tree)</tt> that
+evaluates (finds the value of) an expression tree where the leaves
+are <tt>Integer</tt>.  The value of an <tt>Integer</tt> expression
+is the expression
+itself.  If the expression is a <tt>Cons</tt>, first find the value of
+its arguments (<tt>lhs</tt> and <tt>rhs</tt>), then perform the
+operation denoted by the <tt>op</tt>.  The possible operations are
+<tt>+ - * / expt</tt> .  <tt>(expt x n)</tt> raises x to the power
+<tt>n</tt>; a function <tt>pow</tt> is provided.  Note that <tt>-</tt>
+could have either one operand (minus) or two operands (difference);
+all other operations are assumed to be binary.
+<br> Note: if you use Lisp, call your function 
+<tt>myeval</tt>; <tt>eval</tt> is the Lisp interpreter.
+<br> Example: <tt>(eval '(+ 3 (* 5 7)))  =  38</tt>
+
+<p></p></li><li> Write a function
+<tt>Integer eval(Object tree, Cons bindings)</tt>
+that evaluates an expression tree where the leaves are Integer or are
+variables whose values are given in the <tt>bindings</tt>.
+<tt>bindings</tt> is an association list, <tt>((var value) ...)</tt>,
+that gives values for variables.  This version of <tt>eval</tt> is
+an easy extension of the previous one.  The function <tt>assoc</tt>
+is provided.
+<br> Example: <tt>(eval '(+ 3 (* 5 b)) '((b 7)))  =  38</tt>
+
+<p></p></li><li> Write a function <tt>Cons english(Object tree)</tt> that
+translates an expression tree into a list of English words (Strings).
+If the tree is a leaf, the translation is just a list of that tree.
+For an expression, make a list containing <tt>"the"</tt>, an
+appropriate English word for the operator, and the operands connected
+by <tt>"of"</tt> and <tt>"and"</tt>.  The <tt>english</tt> program
+should only use operations such as <tt>cons</tt>, <tt>list</tt>,
+<tt>append</tt>, <tt>first</tt>, <tt>rest</tt>, <tt>op</tt>, <tt>lhs</tt>,
+<tt>rhs</tt> etc.; it should not use any String operations.
+<br> Example:
+ <tt>(english '(+ 3 (* b 7)))  =  
+         (the sum of 3 and the product of b and 7) </tt>
+
+
+<p></p></li><li> There is a close relationship between programming languages
+and trees. A compiler performs <i>parsing</i>, which converts a
+character string in a programming language to a tree.
+<i>Unparsing</i>, converting a tree to a program, is also useful.
+Write a function <tt>String tojava(Object tree)</tt> that translates
+an expression tree to a String that is a line of Java code.
+The line of Java code should be terminated by a semicolon character.
+We will assume that the expression can contain the operators
+<tt>= + - * /</tt> as well as single-argument functions such as
+<tt>sin</tt>.  
+<p>
+Operators have <i>precedence</i>, which determines the
+order in which operations are performed when an expression is not
+parenthesized.  We will assume that <tt>=</tt> has precedence 1,
+<tt>+ -</tt> have precedence 5, and <tt>* /</tt> have precedence 6.
+A subexpression needs to be parenthesized if its precedence is less
+than or equal to the precedence of its surroundings; otherwise, it
+should not be parenthesized.  Make an auxiliary function that
+includes precedence as an argument.  The starting precedence can be 0,
+so that any operator will be higher in precedence.
+<br> Example: <tt>(tojava '(= x (* (+ a b) c)))  =  "x=(a+b)*c;"</tt>
+</p><p>
+We will assume that a unary minus should always be parenthesized,
+and that it has a precedence of 6.
+</p><p>
+For functions that are not in the operator list, such as <tt>sin</tt>,
+make the name be <tt>Math.</tt> followed by the function name, and make
+a function call form.  For example, <tt>(sin x)</tt> would become
+<tt>"Math.sin(x)"</tt> .
+
+</p></li></ol>
+
+
+</body></html>

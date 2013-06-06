@@ -1,0 +1,140 @@
+
+<!-- saved from url=(0052)http://www.cs.utexas.edu/users/novak/cs314recur.html -->
+<html><!--  cs314recur.html          G. Novak           18 Sep 12    --><!--    --><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>CS 314 Assignment 2: Recursion and Lists</title>
+</head>
+<body>
+
+<h2>CS 314 Assignment 2: Recursion and Lists</h2>
+
+<h3>Due: September 20, 2012 using turnin.</h3>
+
+<b>File:</b> <tt>Cons.java</tt>
+
+<p>
+This assignment may be done in Java or in Lisp.
+</p><p>
+
+</p><ol>
+<li> Write a recursive function <tt>sumsq(int n)</tt> that adds up
+the squares of the integers from <tt>1</tt> through <tt>n</tt>.
+<p>
+</p></li><li> The mathematician Giuseppe Peano (1858 - 1932) showed that all
+arithmetic operations on natural numbers (nonnegative integers) could be
+reduced to a single constant (0) and an operation <i>successor</i>, which
+is available in Java as <tt>++</tt> (in Lisp, <tt>1+</tt>).
+<blockquote>
+Peano was one of the first to use what we now call symbolic logic.
+He introduced, for instance, the use of the symbols `(E x)' to mean
+`there is an x such that'; and he habitually wrote out all of his
+lecture notes in his new symbolism.  He was teaching at a military
+academy at the time, and his students were so incensed by his
+formalistic approach to mathematics that they rebelled (despite his
+promises to pass them all) and got him fired.  Subsequently he found a
+more congenial setting at the University of Turin.  -- Rudy Rucker,
+<i> Goedel's Incompleteness Theorems</i>, p. 289.
+</blockquote>
+<p>
+Write a recursive function <tt>peanoplus(int x, int y)</tt>, using only <tt>++</tt>
+and <tt>--</tt>, to perform addition according to the following definition:
+<table>
+<tbody><tr><td>
+peanoplus(x, y) = </td><td> x </td><td> ,  if    y = 0 </td></tr>
+<tr><td>
+ </td><td> peanoplus(x + 1, y - 1) </td><td> ,  otherwise.
+</td></tr></tbody></table>
+</p><p>
+Note that the <tt>++</tt> and <tt>--</tt> operators must appear
+<i>before</i> the operands in the recursive call, so that the
+change will be made before the call; otherwise, the change will
+be made after the call, causing an infinite loop.
+</p><p>
+We can think of <tt>peanoplus</tt> as similar to an algorithm for adding
+together buckets of rocks: if the second bucket is empty, stop; otherwise
+move one rock from the second bucket to the first bucket and continue.
+</p><p>
+Can you think of an <i> invariant</i> (property that is always true)
+of <tt>peanoplus</tt>?  What is the Big O of <tt>peanoplus</tt>?
+This function is naturally <i>tail-recursive</i>.
+</p><p>
+</p></li><li> Write a function <tt> peanotimes(int x, int y)</tt> that multiplies
+two integers using only
+<tt> peanoplus</tt>, <tt>++</tt>, and <tt>--</tt>,
+and is written in a recursive style similar to that of <tt>peanoplus</tt>.
+What is the Big O of <tt>peanotimes</tt>?
+<p>
+</p></li><li> The mathematical notation <img src="./CS 314 Assignment 2  Recursion and Lists_files/cs307nka.gif" align="center">,
+read <i>n choose k</i>,
+is used to denote the number of distinct subsets of <i>k</i> items that can be
+chosen from a set of <i>n</i> distinct objects.  It can be shown that:
+<p>
+<img src="./CS 314 Assignment 2  Recursion and Lists_files/cs307nkb.gif">
+</p><p>
+Although the <tt>factorial</tt> function could be used in implementing
+<i>n</i> choose <i>k</i>, this would be inefficient for large values of
+<i>n</i> and small <i>k</i>.  We have also seen that <tt>factorial</tt>
+quickly overflows the available accuracy of the basic types in Java.
+<i>n</i> choose <i>k</i> has the value <i>1</i> when <i>k = 0</i>.
+We can algebraically rewrite the definition into the following form for
+<i>k &gt; 0</i>:
+</p><p>
+<img src="./CS 314 Assignment 2  Recursion and Lists_files/cs307nkc.gif">
+</p><p>
+Write a function <tt>choose(int n, int k)</tt>, using a tail-recursive
+auxiliary function, to compute <i>n</i> choose <i>k</i> without using the
+<tt>factorial</tt> function.
+
+<!--    Can you prove that the result of your auxiliary function
+is always an integer?  This would be a good invariant for
+your recursive function: although non-integer intermediate results will
+work in Lisp, they would not work in most languages.  -->
+</p><p>
+</p></li><li> Write functions <tt>sumlist(Cons lst)</tt> to add up a list of
+<tt>Integer</tt>.
+Iterative versions <tt>sumlist</tt> and <tt>sumlistb</tt> are given.
+Write other versions of this function:
+<tt>sumlistr</tt> (recursive), and <tt>sumlisttr</tt> (tail-recursive
+using an auxiliary function).
+<p>
+</p></li><li> Write a function <tt>sumsqdiff(Cons lsta, Cons lstb)</tt> to sum
+squared item-by-item differences
+&#931;(<i>x<sub>i</sub> - y<sub>i</sub></i>)<sup><i>2</i></sup>
+of two lists of
+<tt>Integer</tt>.  Write several versions of this function: iterative,
+recursive, and tail-recursive using an auxiliary function.
+<p>
+</p></li><li> Write a function <tt>maxlist(Cons lst)</tt> to find the maximum value
+in a list of <tt>Integer</tt>.  Write several versions of this function:
+iterative, recursive, and tail-recursive using an auxiliary function.
+<p>
+</p></li><li> Binomial coefficients are the numeric factors of the products
+in a power of a binomial such as (<i>x + y</i>)<sup><i>n</i></sup>.
+For example,
+<i> (x + y)<sup>2</sup>   =   x<sup>2</sup> + 2 x y + y<sup>2</sup> </i>
+has the coefficients <tt> 1 2 1</tt>.  Binomial coefficients can be
+calculated using Pascal's triangle:
+<pre>            1                   n = 0
+         1     1
+      1     2     1
+   1     3     3     1
+1     4     6     4     1       n = 4
+</pre>
+<p>
+Each new level of the triangle has <tt>1</tt>'s on the ends; the interior
+numbers are the sums of the two numbers above them.  Write a program
+<tt>binomial(int n)</tt> to produce a list of binomial coefficients for
+the power <tt>n</tt> using the Pascal's triangle technique.
+For example, <tt>binomial(2)</tt> = <tt>(1 2 1)</tt>.
+You may write additional auxiliary functions as needed.
+<tt>binomial</tt> should be a recursive program that manipulates lists;
+it should not use <tt>(choose n k)</tt>.
+Use the function <tt>(choose n k)</tt> that you wrote earlier to
+calculate <tt>(choose 4 k)</tt> for <tt>k</tt> from <tt>0</tt> through
+<tt>4</tt>; what is the relationship between these values and the
+binomial coefficients?
+
+</p></li></ol>
+
+
+
+</body></html>

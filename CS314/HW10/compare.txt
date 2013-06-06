@@ -1,0 +1,17 @@
+					Austin to Muleshoe	Laredo to Haskell	Dumas to Corsicana			
+path length(Dijkstra)				7			 6			 7	
+path length(Prim)				8			N/A			N/A
+path length(A* with dist)			7			 6			 7
+path length(A* with halfass)			7			 6			 7
+path length(A* with zip)			7			 6			 7
+path length(A* with randombs)			7		 	 6		 	 7
+path length(A* with randomlies)			9			 6			 7	
+nodes searched(Dijkstra) 			71			 67			 68
+nodes searched(A* with dist)			11		 	 14			 10	
+nodes searched(A* with halfass)			40		 	 27			 25	
+nodes searched(A* with zip)			65			 47			 34
+nodes searched(A* with randombs)		31			 30			 20
+nodes searched(A* with randomlies)		61			 16			 42
+
+
+

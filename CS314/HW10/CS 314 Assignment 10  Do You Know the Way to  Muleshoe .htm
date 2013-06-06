@@ -1,0 +1,137 @@
+
+<!-- saved from url=(0052)http://www.cs.utexas.edu/users/novak/cs314graph.html -->
+<html><!--  cs314graph.html          G. Novak           14 Aug 12    --><!--    --><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>CS 314 Assignment 10: Do You Know the Way to
+&lt;span style="text-decoration: line-through;"&gt; San Jose&lt;/span&gt; Muleshoe?
+</title>
+</head>
+<body>
+
+<h2>CS 314 Assignment 10: Do You Know the Way to
+<span style="text-decoration: line-through;"> San Jose</span> Muleshoe?
+</h2>
+
+<h3>Due: November 30, 2012.</h3>
+
+<b>Files:</b> <tt>Cons.java</tt> &nbsp; <tt>Graph.java</tt> &nbsp;
+<tt>graphtest.java</tt> &nbsp;
+<tt>graph.lsp</tt>
+
+<p>
+This assignment may be done in Java or in Lisp.
+</p><p>
+For this assignment, it <b>is legal</b> to copy the algorithm code
+given in the class notes (online) as a starting point; it will
+be necessary to make some minor modifications.
+</p><p>
+In this assignment, we will investigate algorithms that find
+optimal routes on graphs: Dijkstra's algorithm, Prim's algorithm,
+and A* search.  We will test the algorithms on a graph that
+represents cities and highways of Texas.  Route-finding algorithms
+such as these are used in on-line
+services such as those provided by MapQuest and Google.
+
+</p><ol>
+
+<p></p><li> Dijkstra's algorithm finds shortest paths to all nodes
+in a graph from a given starting node.  In effect, it converts the
+graph into a tree, with the starting node as the root; each node
+has a cost (distance from the starting node) and a pointer to
+its parent in the tree.  Reversing the parent pointer chain gives
+a minimum-cost path from the starting node to any node.
+<p>
+</p><ol>
+<p></p><li> Modify the given Dijkstra's algorithm so that it works
+(the initialization will have to be changed).  Also keep a count
+of the number of nodes removed from the priority queue, and return
+this value as the return value of <tt>dijkstra</tt>; this is a measure
+of the cost of running <tt>dijkstra</tt>.
+
+<p></p></li><li> Write a function <tt>Cons pathto(String city)</tt> that
+returns a path (list of city names) from the starting city to the
+specified city, assuming that Dijkstra has been run first so that
+<tt>parent</tt> pointers exist.
+The starting city should be at the front of the list.
+</li></ol>
+
+<p></p></li><li> Make a version of Prim's algorithm that finds a minimum
+spanning tree for a graph.  Return the total cost of the MST as
+the result of <tt>prim</tt>.
+<ol>
+<p></p><li> Write a function <tt>int edgecost( Vertex start, Vertex goal)</tt>
+that returns the cost of the edge from <tt>start</tt> to <tt>goal</tt>,
+assuming that there is a direct edge between these two vertices.
+
+<p></p></li><li> Write a function <tt>int pathcost( Vertex v)</tt>
+that returns the total cost of the path from <tt>v</tt> to
+the root of the tree.
+
+<p></p></li><li> Write a method <tt>int totalcost( )</tt>, within
+the <tt>Graph</tt> class,
+that returns the total cost of all edges in the graph.  You can
+simply add up the cost of all edges, but divide it by 2 since
+both directions of an undirected link are represented.
+</li></ol>
+
+<p></p></li><li> Write a version of the A* algorithm that is done in a style
+similar to the Dijkstra algorithm.
+<tt>int astar( Vertex start, Vertex goal, Heuristic h )</tt> has
+a <tt>goal</tt> as well as a <tt>start</tt> vertex.  This algorithm
+assumes that we are only interested in an optimal path to the
+<tt>goal</tt>, rather than a path to all nodes as in Dijkstra.
+<p>
+</p><ol>
+<p></p><li> For A*, the priority of a node should be the estimated
+total cost of a path from the start to the goal through the node,
+which is the known cost of a path from the <tt>start</tt> to the node
+plus the estimated cost of the remaining distance to the goal,
+as given by the heuristic function.
+
+<p></p></li><li> A* should quit when a path to the <tt>goal</tt> has been
+found.  Note that this is tested when the <tt>goal</tt> node is
+removed from the priority queue, not when it is inserted into the
+queue.  Return the number of nodes removed from the priority queue
+as the value of A*; this is a measure of the cost of running A*.
+
+<p></p></li><li> It is possible that a better path to some node may be
+found as the search proceeds.  We will assume that it is okay to
+simply insert the descendants of a node into the priority queue
+whenever a better path is found; because of the priority, the
+worse path will occupy space in the queue, but will not be considered.
+(The full version of A* does a better job of changing the cost
+of a node.)
+
+<p></p></li><li> We will examine a variety of heuristics for A*:
+<ol>
+<p></p><li> <tt>dist</tt> computes the approximate great-circle distance
+(airline distance) between two cities.  This is an excellent
+heuristic because it is a good estimate of road distance (and thus
+allows an efficient search) but never over-estimates.
+
+<p></p></li><li> <tt>halfass</tt> computes half the great-circle distance.
+(A mule is the offspring of a male ass or donkey and a female horse.)
+
+<p></p></li><li> <tt>zip</tt> returns 0.
+
+<p></p></li><li> <tt>randombs</tt> returns a random fraction of great-circle
+distance.
+
+<p></p></li><li> <tt>randomlies</tt> returns a random distance between 0 and
+5000 miles.  This may be an over-estimate, so that an optimal path
+is not guaranteed.
+</li></ol>
+
+<p></p></li><li> Make a table (e.g. as a text file) to compare the number
+of nodes searched and path length for Austin to Muleshoe, Laredo
+to Haskell, and Dumas to Corsicana.  Compare these for the programs
+Dijkstra, Prim (Austin to Muleshoe only, compare path length only),
+and A* using the heuristics
+<tt>dist</tt>, <tt>halfass</tt>, <tt>zip</tt>, <tt>randombs</tt>,
+and <tt>randomlies</tt>.  Turn in this text file <tt>compare.txt</tt>
+as part of your assignment submission.
+</li></ol>
+<p>
+
+
+
+</p></li></ol></body></html>

@@ -1,0 +1,88 @@
+
+<!-- saved from url=(0054)http://www.cs.utexas.edu/users/novak/cs314listlib.html -->
+<html><!--  cs314listlib.html          G. Novak           14 Aug 12    --><!--    --><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>CS 314 Assignment 5: Java List Library</title>
+</head>
+<body>
+
+<h2>CS 314 Assignment 5: Java List Library</h2>
+
+<h3>Due: October 11, 2012.</h3>
+
+<b>File:</b> <tt>libtest.java</tt>
+
+<p>
+
+This assignment should be done in Java; its purpose is to
+gain familiarity with the Java List libraries.  A good way to get
+documentation of the Java libraries is to Google, for example,
+"Java LinkedList".
+
+</p><ol>
+<li> Write a function <tt>sumlist(LinkedList&lt;Integer&gt; lst)</tt>
+that adds up a list of <tt>Integer</tt>.  Write a similar function
+<tt>sumarrlist(ArrayList&lt;Integer&gt; lst)</tt>.
+
+<p></p></li><li> Write a function
+<tt>subset(Predicate p, LinkedList&lt;Object&gt; lst)</tt>
+that returns a new list containing only the values in
+<tt>lst</tt> that satisfy the predicate <tt>p</tt>.  We will
+assume that <tt>p.pred(item)</tt> can be used to test an item.
+
+<p></p></li><li> Write a destructive function
+<tt>dsubset(Predicate p, LinkedList&lt;Object&gt; lst)</tt>
+that removes from
+<tt>lst</tt> the values that do not satisfy the predicate <tt>p</tt>.
+
+<p></p></li><li> Write a function
+<tt>some(Predicate p, LinkedList&lt;Object&gt; lst)</tt>
+that returns the first item in <tt>lst</tt> that satisfies the
+predicate <tt>p</tt>.  If no item satisfies the predicate,
+return <tt>null</tt>.
+
+<p></p></li><li> Write a function
+<tt>mapcar(Functor f, LinkedList&lt;Object&gt; lst)</tt> that 
+returns a new list containing the results of applying
+<tt>f.fn(item)</tt> to each item in the list <tt>lst</tt>.
+The output list should be in the same order as the original list.
+<p>
+We will be especially interested in <tt>mapcar</tt> because it
+is the first component of MapReduce, which we will study later.
+Many kinds of computations can be described using MapReduce.
+MapReduce runs in parallel on networks of hundreds of thousands
+of processors at Google.
+
+</p><p></p></li><li> Write a function
+<tt>merge(LinkedList&lt;Object&gt; lsta,
+LinkedList&lt;Object&gt; lstb)</tt> that 
+returns a new list formed by merging the two input lists in order.
+The input lists are assumed to be in sorted order (ascending).
+We will assume that the elements of the lists can be cast to
+<tt>(Comparable)</tt> so that they support <tt>.compareTo()</tt>.
+Duplicates should be retained in a merge.
+
+<p></p></li><li> Write a function <tt>sort(LinkedList&lt;Object&gt; lst)</tt>
+that produces a sorted list containing the elements of the input
+list.  A list with only one element is sorted; otherwise, produce two
+new lists, each with half the input elements, sort and merge them.
+How does the Big O() of this sort compare to the Big O() of the
+destructive merge sort in the class notes?  How much garbage is
+produced by this sort function?
+
+<p></p></li><li> Write a function
+<tt>intersection(LinkedList&lt;Object&gt; lsta,
+LinkedList&lt;Object&gt; lstb)</tt> that 
+returns a new list that is the set intersection of the two input lists.
+Sort the input lists first and use the merge technique to form the
+intersection.
+
+<p></p></li><li> Write a function <tt>reverse(LinkedList&lt;Object&gt; lst)</tt>
+that produces a new list in the reverse order of the input list.
+The method <tt>.addFirst(Object o)</tt> is an O(1) way to add an element
+at the front of a list, so that a linked list can be used as a stack
+as well as a queue.
+
+</li></ol>
+
+
+</body></html>

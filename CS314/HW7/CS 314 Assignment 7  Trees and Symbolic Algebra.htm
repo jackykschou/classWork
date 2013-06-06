@@ -1,0 +1,170 @@
+
+<!-- saved from url=(0052)http://www.cs.utexas.edu/users/novak/cs314treeb.html -->
+<html><!--  cs314treeb.html          G. Novak           04 Oct 12    --><!--    --><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>CS 314 Assignment 7: Trees and Symbolic Algebra</title>
+</head>
+<body>
+
+<h2>CS 314 Assignment 7: Trees and Symbolic Algebra</h2>
+
+<h3>Due: November 1, 2012.</h3>
+
+<b>Files:</b> <tt>Cons.java</tt> &nbsp; <tt>formulas.lsp</tt>
+
+<p>
+The following functions that operate on trees should be recursive.
+Some useful functions that you may need are provided in the file
+<tt>Cons.java</tt>, and you will need some of your functions from the
+last assignment.  This assignment may be done in Java or in Lisp.
+
+</p><ol>
+
+<p></p><li> You have been assigned to explore a cave to see whether it
+contains a treasure.  The treasure is too heavy for you to carry out;
+you must return instructions to get to the treasure.
+Each room of the cave is either a junction, with two connecting passages
+called <tt>first</tt> and <tt>rest</tt>, or it is a dead end that may or
+may not be a treasure.
+
+<ol>
+<li> Write a function <tt>Cons findpath(Object item, Object cave)</tt> that
+will find a path
+to a part of <tt> cave</tt> that matches <tt> item</tt>; we will asssume
+that <tt> .equals()</tt> can be used to test.  <tt> findpath</tt> returns
+<tt> null</tt> if <tt> item</tt> does not occur in <tt> cave</tt>; otherwise,
+it returns a list of <tt> "first"</tt> and <tt> "rest"</tt> that describes the
+path to the item, ending with <tt> "done"</tt>.
+<tt> findpath</tt> is easily written as a recursive function.
+Examples:
+<pre>(findpath 'a 'b)     = null
+(findpath 'a 'a)     = ("done")
+(findpath 'a '(a))   = ("first" "done")
+(findpath 'gold '(rocks gold (monster))) = ("rest" "first" "done")
+</pre>
+
+<p></p></li><li> Write an interpreter <tt>Object follow(Cons path, Object cave)</tt>
+that will follow a path as returned by <tt>findpath</tt> and retrieve the
+contents of <tt>cave</tt> at the location specified by <tt>path</tt>.
+An interpreter reads a list of instructions and performs the action
+specified by each instruction.
+<pre>(follow '("rest" "first" "done") '(rocks gold (monster)))  =  gold
+</pre>
+
+<p></p></li><li> Write a function
+<tt>Object corresp(Object item, Object tree1, Object tree2)</tt>
+that finds the item, corresponding to <tt>item</tt> in <tt>tree1</tt>,
+in <tt>tree2</tt>.  Example:
+<pre>(corresp 'light '((my eyes) (have seen (the light)))
+                '((my ears) (have heard (the music))))
+  ==&gt; music
+</pre>
+</li></ol>
+</li><li> Write a recursive function <tt>Object solve(Cons e, String v)</tt> that
+attempts to solve the equation <tt>e</tt> for variable <tt>v</tt>.
+We assume that any variable occurs at most once in <tt>e</tt>, and that the
+equation initially has a left-hand side that is a single variable.
+The basic idea of <tt>solve</tt> is to test for equations that are
+already solved or unsolvable (base cases); otherwise, <tt>solve</tt>
+will search for a solution by applying laws of algebra to transform the
+equation into different forms.  <tt>solve</tt> is a kind of tree
+recursion -- not recursion on <tt>first</tt> and <tt>rest</tt>, but
+recursion on the applicable transformations of the input formula into new
+formulas.  The functions <tt>op</tt>, <tt>lhs</tt> and <tt>rhs</tt>
+are provided.
+<p>
+</p><ol>
+<li> If the left-hand side (<tt>lhs</tt>) of <tt>e</tt> is <tt>v</tt>,
+return <tt>e</tt>.
+<pre>   (solve '(= f (* m a)) 'f)  =&gt;  (= f (* m a))
+</pre>
+
+</li><li> If the right-hand side (<tt>rhs</tt>) of <tt>e</tt> is <tt>v</tt>, return
+a new version <tt>e</tt> with its <tt>lhs</tt> and <tt>rhs</tt> reversed.
+<pre>   (solve '(= (* m a) f) 'f)  =&gt;  (= f (* m a))
+</pre>
+
+</li><li> If the <tt>rhs</tt> is not <tt>v</tt> and not a Cons, return <tt>null</tt>.
+
+<p></p></li><li> If the <tt>rhs</tt> of <tt>e</tt> is a Cons (i.e. an operation),
+try to solve the equation by applying algebraic
+laws, which will make a new equation by moving things to the left side.
+Then try to solve <i>that</i> equation.  For binary operators, there will
+be two possibilities, both of which must be tried.  For example, given the
+original equation <i>x = y - z</i>, we could (a) add <i>z</i> to both sides
+to give <i>x + z = y</i>, or (b) subtract y from both sides to give
+<i>x - y = - z</i> and then negate both sides to give <i>y - x = z</i>
+(these two operations can be combined as a single transformation).
+<pre>   (solve '(= x (- y z)) 'y)
+      (solve '(= (- y x) z) 'y)   ; first try:  null
+      (solve '(= (+ x z) y) 'y)   ; second try: succeeds
+    =&gt;  (= y (+ x z))
+</pre>
+</li></ol>
+
+You should handle the operators <tt>+ - * / sqrt exp log</tt> and
+<tt>(expt </tt><i>x  </i><tt>2)</tt>.  <tt>exp</tt> (e to the given
+power) and <tt>log</tt> (logarithm to the base e)
+are inverses, and <tt>(expt x 2)</tt> and <tt>sqrt</tt> are inverses
+(we will assume that <tt>expt</tt> is only used with the power 2).
+The operator <tt>-</tt> can be either unary (having only one argument,
+i.e. minus) or binary (having two arguments, i.e. difference),
+which must be treated differently.  We will assume that all other operators
+will have a fixed number of arguments (either one or two).
+<p>
+Demonstrate that you can solve the following equations for any of their
+variables.  These equations are defined in the file.
+</p><pre>   (= s (* 0.5 (* a (expt t 2))))
+   (= s (+ s0 (* v t)))
+   (= a (/ f m))
+   (= v (* a t))
+   (= f (/ (* m v) t))
+   (= f (/ (* m (expt v 2)) r))
+   (= h (- h0 (* 4.94 (expt t 2))))
+   (= c (sqrt (+ (expt a 2) (expt b 2))))
+   (= v (* v0 (- 1 (exp (/ (- t) (* r c))))))
+</pre>
+
+<p>
+</p></li><li> Modify your function <tt>eval</tt> from the previous assignment
+so that it returns <tt>Double</tt> and assumes that values supplied in
+the <tt>bindings</tt> list are also <tt>Double</tt>.  Extend it to
+also handle the functions <tt>sqrt</tt>, <tt>exp</tt> and <tt>log</tt>;
+you can use library functions such as <tt>Math.pow</tt> etc.
+
+<p>
+</p></li><li> Students in beginning physics courses
+often solve homework problems by searching through the
+book for an equation that relates the desired variable
+and the variables whose values are given.
+<p>
+Define a function
+<tt>Double solveit(Cons equations, String var, Cons values)</tt> where
+<tt>equations</tt> is a list of equations, <tt>var</tt> is a variable
+whose value is desired, and <tt>values</tt> is an association list of variables
+with known values.  Search the list <tt>equations</tt> to find an
+equation that relates exactly these variables.  Solve the equation for
+the desired variable and evaluate the solved equation to find its value.
+</p><pre>   (solveit formulas 'm '((f 10.0) (a 2.0)))  =&gt;  5.0
+</pre>
+Use the equations in <tt>formulas</tt> to solve the following problems:
+<ol>
+<li> A pebble is dropped off the UT tower and hits the ground after
+4 seconds.  What is the height of the tower in meters?
+(Find <i>h0</i> given <i>h = 0.0, t = 4.0</i>.)
+
+</li><li> A car accelerates from zero to 60 mph (88 ft/s) in 8 seconds.
+What is its acceleration?  (Find <i>a</i> given <i>v = 88.0, t = 8.0</i>.)
+
+</li><li> A capacitor is charged through a resistance of 10K ohms using a
+6 volt battery.  It reaches 3 volts after 5 seconds.  What is its
+capacitance?
+(Find <i>c</i> given <i>v = 3.0, v0 = 6.0, r = 10000.0, t = 5.0</i>.)
+
+</li><li> A ladder 10 ft long leans against a wall.  The foot of the ladder is
+6 ft from the wall.  How far up the wall is the top of the ladder?
+(Find <i>b</i> given <i>c = 10.0, a = 6.0</i>.)
+
+</li></ol>
+
+
+</li></ol></body></html>
