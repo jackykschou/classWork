@@ -1,0 +1,51 @@
+
+<!-- saved from url=(0047)http://www.cs.utexas.edu/~peterson/assign6.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Programming Assignment 6 </title>
+</head>
+
+<body>
+<h1> Programming Assignment 6 -- CS429 Spring 2013 </h1>
+Due Date: 19 April 2013
+
+<h1> Cache Modeling and Performance </h1>
+
+<p>
+A major part of C programming, in the real world, is being able to
+take someone else's code and fix it or extend it.  Also, programs
+always have to run faster.
+
+</p><p>
+At <a href="http://www.cs.utexas.edu/users/peterson/prog6.tar"> prog6.tar </a>
+is a tar file of a C program and its Makefile 
+that is a general cache simulator.  Download it
+and modify it for two purposes:
+
+</p><ol>
+<p></p><li> The cache simulator will simulate caches with a replacement policy
+of (a) Random, (b) LFU, (c) FIFO.  Add an LRU replacement policy.
+
+<p></p></li><li> Make it run at least twice as fast.  If it currently takes 2 minutes
+to run; make it run in less than 1 minute.
+
+</li></ol>
+
+<p>
+The cache simulator takes valgrind memory traces as input.  You can produce your
+own trace files by:
+</p><pre>valgrind --log-fd=1 --tool=lackey -v --trace-mem=yes a.out ...
+</pre>
+for any a.out file that you produce.  There are sample trace files in
+<a href="http://www.cs.utexas.edu/users/peterson/memory_trace"> peterson/memory_trace </a>.
+Be careful, these can get large quickly.
+
+<p>
+Grading will be based upon (a) your output matching our output for an LRU
+replacement policy, and (b) the time it takes to run your code against 
+the initial version, for a set of test cases.
+
+</p><p>
+Due Date: 19 April 2013
+
+
+</p></body></html>

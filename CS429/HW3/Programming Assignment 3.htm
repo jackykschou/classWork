@@ -1,0 +1,60 @@
+
+<!-- saved from url=(0047)http://www.cs.utexas.edu/~peterson/assign3.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Programming Assignment 3 </title>
+</head>
+
+<body>
+<h1> Programming Assignment 3 -- CS429 Spring 2013 </h1>
+Due Date: 22 Feb 2013
+<p>
+The purpose of this assignment is mainly to (a) show how
+the same information can be interpreted in different
+ways and (b) to get you decoding instructions for the
+y86 instruction set.
+
+</p><p>
+Write a C program to read a 
+<a href="http://www.cs.utexas.edu/~peterson/y86_format.html"> Y86 object file </a> into memory
+(same as Programming Assignment 2).  As you do this, remember
+the minimum and maximum address that you load data into.
+</p><p>
+For each load address, from the minimum to the maximum, 
+print (on one line, separated by one space):
+</p><ol>
+<p></p><li> The load address, as a 4-digit hexidecimal number (%04X).
+<p></p></li><li> That byte as a 2-digit hexidecimal number (%02X).
+<p></p></li><li> The 4 bytes that start at the address, assembled least significant byte first (little-endian), as an 8-digit hexidecimal number (%08X).
+<p></p></li><li> The 4 bytes that start at the address, assembled least significant byte first (little-endian), as a signed decimal number (%10d).
+<p></p></li><li> Decode the y86 instruction starting at the load address, and print the mnemonic corresponding to the instruction (%s).  If the byte is not a valid opcode, print "invalid".
+</li></ol>
+
+<p>
+The y86 instruction set is given on page 338 of the text book 
+<i>Computer Systems: A Programmer's Perspective (2nd Edition)</i>,
+Randal E. Bryant, David R. O'Hallaron, 2010.  Figures 4.2 and 4.3
+which I have scanned as <a href="http://www.cs.utexas.edu/~peterson/y86_opcodes.html"> this page </a>.
+Also available <a href="http://vip.cs.utsa.edu/classes/cs3843f2011/notes/ch04-1.html">
+here </a>
+
+</p><p>
+As an example, if the yb file was:
+</p><pre>7962 0000 0006 3063A001007E
+</pre>
+the output would look like:
+<pre>0000 30 01A06330    27288368 irmovl
+0001 63 0001A063      106595 xorl
+0002 A0 7E0001A0  2113929632 pushl
+0003 01 007E0001     8257537 invalid
+0004 00 00007E00       32256 halt
+0005 7E 0000007E         126 invalid
+</pre>
+
+
+
+
+<p>
+Due Date: 22 Feb 2013
+
+
+</p></body></html>

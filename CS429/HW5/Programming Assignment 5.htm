@@ -1,0 +1,43 @@
+
+<!-- saved from url=(0047)http://www.cs.utexas.edu/~peterson/assign5.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Programming Assignment 5 </title>
+</head>
+
+<body>
+<h1> Programming Assignment 5 -- CS429 Spring 2013 </h1>
+Due Date: 29 Mar 2013
+
+<h1> Y86 Simulator </h1>
+
+<p>
+Write a simulator for the Y86 computer described in Chapter 4 of
+<i>Computer Systems: A Programmer's Perspective (2nd Edition)</i>,
+Randal E. Bryant, David R. O'Hallaron, 2010.
+
+</p><p>
+Simulate a 32-bit byte-addressable memory.  The processor has a
+program counter (PC), 8 32-bit registers (%eax, %ebx, %ecx,
+%edx, %esi, %edi, %esp, and %ebp), and a 3-bit condition code.
+The instruction set is defined by a 1-byte opcode.  Each opcode
+has a specific format and definition.
+
+</p><p>
+Load a Y86 object file into memory to get a program to run.
+Assume the starting address of the object file (the initial PC
+value) is the first load address that you find.
+
+</p><p> Execute instructions one after another until you get either
+(a) a halt instruction (opcode = 0x00), or (b) an error condition
+(an invalid opcode, or an invalid memory address).
+
+</p><p> For each instruction, print the address of that instruction, 
+the mnemonic opcode for that instruction, and the value of any
+register or memory address used by the instruction.  Print the
+value of the register after the instruction has completed.
+
+</p><p>
+Due Date: 29 Mar 2013
+
+
+</p></body></html>

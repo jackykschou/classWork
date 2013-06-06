@@ -1,0 +1,47 @@
+
+<!-- saved from url=(0047)http://www.cs.utexas.edu/~peterson/assign2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Programming Assignment 2 </title>
+</head>
+
+<body>
+<h1> Programming Assignment 2 -- CS429 Spring 2013 </h1>
+Due Date: 8 Feb 2013
+<p>
+The purpose of this assignment is mainly (a) to get you working
+with binary representations of information, and (b) to start 
+the work of writing a simulator for Y86 by loading a Y86 binary
+into simulated memory.
+
+</p><p>
+Write a C program to read a 
+<a href="http://www.cs.utexas.edu/~peterson/y86_format.html"> Y86 object file </a> into memory 
+and then print, one byte per line, all non-zero bytes to
+standard output, in the format:
+</p><pre>[Byte Address, in hex]: [Byte Value, in hex].
+</pre>
+
+<p> For example, an input file of
+</p><pre>79620000000430F40001
+</pre>
+would print
+<pre>0000: 30
+0001: F4
+0003: 01
+</pre>
+
+<p> There are two types of errors that your program can report
+instead of the output given above.
+</p><ol>
+<li> A file without the 0x7962 as the first two bytes should
+just report "The file is not a Y86 object file".
+</li><li> If the file has the 0x7962 as the first two bytes, but
+does not match the expected format otherwise, just report
+"The Y86 object file is corrupted".
+</li></ol>
+
+<p>
+Due Date: 8 Feb 2013
+
+
+</p></body></html>

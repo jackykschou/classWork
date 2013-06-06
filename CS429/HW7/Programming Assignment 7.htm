@@ -1,0 +1,80 @@
+
+<!-- saved from url=(0047)http://www.cs.utexas.edu/~peterson/assign7.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Programming Assignment 7 </title>
+</head>
+
+<body>
+<h1> Programming Assignment 7 -- CS429 Spring 2013 </h1>
+Due Date: 26 April 2013
+
+<h1> Region Adjacency </h1>
+
+<p>
+Write a program to read a set of regions, and then report,
+for each region, which other regions are adjacent to it.
+Two regions are adjacent if any edge of one intersects with
+any edge of the other in more than one point.
+
+</p><p>
+Input is a file of text defining a set of regions.  Each region
+is a set of polygons.  Each polygon is a sequence of points, defining
+a closed area.
+
+</p><p>
+A region starts with a left brace "{",
+followed by the name of the region, a comma, and then a comma-separated list of
+polygons, followed by a right brace.  For example: { R1, polygon } or { R 2, polygon1, polygon2 }
+
+</p><p>
+A polygon is a left square bracket "[" followed by a list of comma-separated
+points, followed by a right square bracket "]".  For example, [ point, point, point ]
+
+</p><p>
+A point is an x,y pair, expressed as a left parenthesis "(" followed by two 
+comma separated numbers, followed by a right parenthesis ")".  For example, ( 23.23, -2.0 )
+
+</p><p>
+Ignore spaces and line breaks.
+
+</p><p>
+A simple set of 3 regions, each region being one polygon is:
+
+</p><pre>{ Region1, [ (0,1), (0,2), (2,2), (2,1), (0,1) ]}
+{ Region2, [ (1,0), (3,0), (3,1), (1,1), (1,0) ]}
+{ Region3, [ (3,0), (3,1), (4.1,1), (4.1,0), (3,0) ]}
+</pre>
+
+<p>
+We don't know the units of the points.  They can be positive or negative, integer or floating point
+numbers.
+
+</p><p>
+Each polygon should be closed -- it's first point should be the same as it's last point.
+
+</p><p>
+Note that in the example, Region3 is adjacent to Region2, since they both share the
+edge from (3,0) to (3,1).  But Region1 is adjacent to Region2 because the edge from (2,1)
+to (0,1) for Region1 intersects the edge from (3,1) to (1,1) for Region2.  They share the
+(non-point) edge from (1,1) to (2,1).
+
+</p><p>
+Output for the sample input above would then be:
+
+</p><pre>Region1: Region2
+Region2: Region1, Region3
+Region3: Region2
+</pre>
+
+If the input is badly formed, simply report: "Bad input at line %d", giving the line
+number where the input does not match the expected input format.
+
+<p>
+Sample test files are in 
+<a href="http://www.cs.utexas.edu/users/peterson/maps"> peterson/maps </a>
+
+</p><p>
+Due Date: 26 April 2013
+
+
+</p></body></html>
